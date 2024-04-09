@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <color name="coral_pink">#DB9286</color>
+    <color name="barn_red">#761000</color>
+    <color name="linen">#FEEFE5</color>
+
+    <color name="rich_black">#000714</color>
+    <color name="oxford_blue">#04183B</color>
+    <color name="caribbean_current">#3c6767</color>
+    <color name="brunswick_green">#2c4433</color>
+    <color name="french_grey">#aeb5c2</color>
+
+    <color name="platinum">#e1e3df</color>
+    <color name="eerie_black">#1a1c1a</color>
+    <color name="eerie_black_light">#202521</color>
+    <color name="charcoal">#2d4b58</color>
+    <color name="feldgrau">#3b4a40</color>
+    <color name="black_olive">#2b352e</color>
+    <color name="cal_poly_green">#215135</color>
+</resources>
