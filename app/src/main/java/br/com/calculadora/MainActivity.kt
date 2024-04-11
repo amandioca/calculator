@@ -7,10 +7,15 @@ import android.widget.TextView
 import br.com.calculadora.databinding.ActivityMainBinding
 import net.objecthunter.exp4j.Expression
 import net.objecthunter.exp4j.ExpressionBuilder
+import net.objecthunter.exp4j.operator.Operator
+import net.objecthunter.exp4j.operator.Operators
+
 
 class MainActivity : AppCompatActivity() {
     
     private lateinit var binding: ActivityMainBinding
+    private val PARENS = "parens"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -47,25 +52,24 @@ class MainActivity : AppCompatActivity() {
             binding.calc.text = "${binding.calc.text}9"
         }
         binding.plus.setOnClickListener(){
-            binding.calc.text = "${binding.calc.text}+"
+            addSymbol("+")
         }
         binding.min.setOnClickListener(){
-            binding.calc.text = "${binding.calc.text}-"
+            addSymbol("-")
         }
         binding.times.setOnClickListener(){
-            binding.calc.text = "${binding.calc.text}×"
+            addSymbol("×")
         }
         binding.div.setOnClickListener(){
-            binding.calc.text = "${binding.calc.text}÷"
+            addSymbol("÷")
         }
-        binding.parensOpen.setOnClickListener(){
-            binding.calc.text = "${binding.calc.text}("
+        binding.parens.setOnClickListener(){
+            addSymbol(PARENS)
         }
-        binding.parensClose.setOnClickListener(){
-            binding.calc.text = "${binding.calc.text})"
+        binding.percent.setOnClickListener(){
         }
         binding.comma.setOnClickListener(){
-            binding.calc.text = "${binding.calc.text},"
+            addSymbol(",")
         }
         binding.backspace.setOnClickListener(){
             binding.calc.text = binding.calc.text.dropLast(1)
@@ -83,6 +87,21 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun addSymbol(symbol: String) {
+        val calcText = binding.calc.text.toString()
+
+        if (calcText.contains('(') && symbol == PARENS){
+            binding.calc.text = calcText.plus(')')
+        } else if (symbol == PARENS) {
+            binding.calc.text = calcText.plus('(')
+        } else if (Operator.isAllowedOperatorChar(calcText.last())) {
+            binding.calc.text = calcText.substring(0, calcText.length - 1).plus(symbol)
+        } else {
+            binding.calc.text = calcText.plus(symbol)
+        }
+
+    }
+
     private fun formatResult(value: Double): String {
         val formatted = if (value % 1 == 0.0) {
             value.toInt().toString()
@@ -91,4 +110,6 @@ class MainActivity : AppCompatActivity() {
         }
         return formatted.replace('.',',')
     }
+
+
 }

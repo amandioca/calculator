@@ -89,8 +89,8 @@
             android:gravity="center">
 
             <Button
-                android:id="@+id/parens_open"
-                android:text="("
+                android:id="@+id/parens"
+                android:text="( )"
                 style="@style/Button2"/>
 
             <Button
@@ -122,8 +122,8 @@
             android:gravity="center">
 
             <Button
-                android:id="@+id/parens_close"
-                android:text=")"
+                android:id="@+id/percent"
+                android:text="%"
                 style="@style/Button2"/>
 
             <Button
