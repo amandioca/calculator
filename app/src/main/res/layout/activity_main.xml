@@ -21,7 +21,7 @@
             android:id="@+id/calc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="0"
+            tools:text="0"
             android:textStyle="bold"
             android:textSize="68dp"
             android:textAlignment="viewEnd"
@@ -31,7 +31,7 @@
             android:id="@+id/result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="0"
+            tools:text="0"
             android:textStyle="bold"
             android:textSize="52dp"
             android:textAlignment="textEnd"
@@ -55,7 +55,7 @@
             android:gravity="center">
 
             <Button
-                android:id="@+id/AC"
+                android:id="@+id/allClear"
                 android:text="AC"
                 style="@style/Button3"/>
 
