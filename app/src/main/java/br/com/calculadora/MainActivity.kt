@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     private val parens = "( )"
     private val parenOpen = '('
     private val parenClose = ')'
-    private val firstOperatorAllowed = arrayOf("-", "%")
+    private val firstOperatorAllowed = arrayOf("-")
     private val operators = charArrayOf('+', '-', '÷', '×', '%', '=')
 
     override fun onCreate(savedInstanceState: Bundle?) {
