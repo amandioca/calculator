@@ -2,15 +2,10 @@ package br.com.calculadora
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
-import android.widget.TextView
 import br.com.calculadora.databinding.ActivityMainBinding
-import net.objecthunter.exp4j.Expression
 import net.objecthunter.exp4j.ExpressionBuilder
 import net.objecthunter.exp4j.operator.Operator
-import net.objecthunter.exp4j.operator.Operators
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,8 +13,8 @@ class MainActivity : AppCompatActivity() {
     private val parens = "( )"
     private val parenOpen = '('
     private val parenClose = ')'
-    private val firstOperatorAllowed = arrayOf("-")
-    private val operators = charArrayOf('+', '-', '÷', '×', '%', '=')
+    private val firstSymbolAllowed = arrayOf("-", ",")
+    private val operators = arrayOf("+", "-", "÷", "×", "%", "=")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         return char.toIntOrNull() != null
     }
 
-    private fun isOperator(char: Char): Boolean {
+    private fun isOperator(char: String): Boolean {
         return operators.contains(char)
     }
 
@@ -88,34 +83,34 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun symbolClickListener(buttonText: String) {
-        var lastChar = ' '
+        var lastChar = ""
         var displayCalcText = ""
         var displayFirstOperator = false
 
         if (binding.calc.text.isNotEmpty()) {
             displayCalcText = binding.calc.text.toString()
-            lastChar = binding.calc.text.last()
+            lastChar = binding.calc.text.last().toString()
         }
 
-        firstOperatorAllowed.forEach { op ->
+        firstSymbolAllowed.forEach { op ->
             if (op == displayCalcText) displayFirstOperator = true
         }
         val countParentOpen = displayCalcText.count { it == parenOpen }
         val countParentClose = displayCalcText.count { it == parenClose }
 
-        return if (displayCalcText.isEmpty() && firstOperatorAllowed.contains(buttonText)){
+        return if (displayCalcText.isEmpty() && firstSymbolAllowed.contains(buttonText)){
             updateDisplayCalc(buttonText)
         }
         else {
              if (buttonText == parens) {
                 if ((displayCalcText.contains(parenOpen) && isInt(lastChar.toString())) ||
-                    (lastChar == parenClose && countParentOpen > countParentClose)) {
+                    (lastChar == parenClose.toString() && countParentOpen > countParentClose)) {
                     updateDisplayCalc(parenClose.toString())
                 } else {
                     updateDisplayCalc(parenOpen.toString())
                 }
             }
-            else if ((!displayFirstOperator || firstOperatorAllowed.contains(buttonText)) && (isOperator(lastChar) || lastChar.toString() == buttonText)) {
+            else if (!displayFirstOperator && (isOperator(lastChar) || lastChar.toString() == buttonText) && isOperator(buttonText)) {
                 backspace()
                 updateDisplayCalc(buttonText)
             }
@@ -132,13 +127,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun calculateResult() {
-        val calc = binding.calc.text.toString()
-                            .replace('÷','/')
-                            .replace('×','*')
-                            .replace(',','.')
+        var forCalc = binding.calc.text.toString()
+            .replace('÷','/')
+            .replace('×','*')
+            .replace(',','.')
+            .replace("%", "/100*")
 
-        val expression = ExpressionBuilder(calc).build()
-        binding.result.text = formatResult(expression.evaluate())
+        // ignore the operator at the end
+        if (forCalc.isNotEmpty() && Operator.isAllowedOperatorChar(forCalc.last())){
+            forCalc = forCalc.dropLast(1)
+        }
+
+        val expressionBuilder = ExpressionBuilder(forCalc).build()
+        val validationResult = expressionBuilder.validate()
+        if (validationResult.isValid){
+            binding.result.text = formatResult(expressionBuilder.evaluate())
+        }
     }
 
     private fun formatResult(value: Double): CharSequence? {
