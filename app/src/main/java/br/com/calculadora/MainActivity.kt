@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         else updateDisplayCalc("")
     }
 
-    private fun symbolClickListener(button: View, buttonText: String) {
+    private fun symbolClickListener(buttonText: String) {
         var lastChar = ' '
         var displayCalcText = ""
         var displayFirstOperator = false
