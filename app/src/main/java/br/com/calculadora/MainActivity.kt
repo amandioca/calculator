@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                         }
                         buttonText.isEmpty() -> backspace()
                         buttonText == "=" && binding.calc.text.isNotEmpty() -> calculateResult()
-                        else -> symbolClickListener(button, buttonText)
+                        else -> symbolClickListener(buttonText)
                     }
                 }
             }
