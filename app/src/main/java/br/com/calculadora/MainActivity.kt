@@ -53,13 +53,17 @@ class MainActivity : AppCompatActivity() {
 
                 if (isInt(buttonText)) {
                     binding.calc.text = binding.calc.text.toString().plus(buttonText)
+                    calculateResult()
                 } else {
                     when {
                         buttonText == "AC" -> {
                             binding.calc.text = ""
                             binding.result.text = ""
                         }
-                        buttonText.isEmpty() -> backspace()
+                        buttonText.isEmpty() -> {
+                            backspace()
+                            calculateResult()
+                        }
                         buttonText == "=" && binding.calc.text.isNotEmpty() -> calculateResult()
                         else -> symbolClickListener(buttonText)
                     }
@@ -127,22 +131,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun calculateResult() {
-        var forCalc = binding.calc.text.toString()
-            .replace('÷','/')
-            .replace('×','*')
-            .replace(',','.')
-            .replace("%", "/100*")
+        if (binding.calc.text.isNotEmpty()){
+            val startsWithOperator = operators.contains(binding.calc.text.first().toString())
 
-        // ignore the operator at the end
-        if (forCalc.isNotEmpty() && Operator.isAllowedOperatorChar(forCalc.last())){
-            forCalc = forCalc.dropLast(1)
-        }
+            if ((startsWithOperator && binding.calc.text.count {operators.contains(it.toString())} >= 2) ||
+                (!startsWithOperator && binding.calc.text.count {operators.contains(it.toString())} >= 1)){
 
-        val expressionBuilder = ExpressionBuilder(forCalc).build()
-        val validationResult = expressionBuilder.validate()
-        if (validationResult.isValid){
-            binding.result.text = formatResult(expressionBuilder.evaluate())
-        }
+                var expression = binding.calc.text.toString()
+                    .replace('÷','/')
+
+                // ignore the operator at the end
+                if (expression.isNotEmpty() && Operator.isAllowedOperatorChar(expression.last())){
+                    expression = expression.dropLast(1)
+                }
+
+                val expressionBuilder = ExpressionBuilder(expression).build()
+
+                if (expressionBuilder.validate().isValid){
+                    val result = formatResult(expressionBuilder.evaluate())
+
+                    if (result != expression) binding.result.text = result
+                    else binding.result.text = ""
+                 }
+            }
+        } else binding.result.text = ""
     }
 
     private fun formatResult(value: Double): CharSequence? {
