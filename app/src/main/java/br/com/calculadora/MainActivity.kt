@@ -139,6 +139,9 @@ class MainActivity : AppCompatActivity() {
 
                 var expression = binding.calc.text.toString()
                     .replace('÷','/')
+                    .replace('×','*')
+                    .replace(',','.')
+                    .replace("%", "/100*")
 
                 // ignore the operator at the end
                 if (expression.isNotEmpty() && Operator.isAllowedOperatorChar(expression.last())){
