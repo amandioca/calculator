@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     private val parenOpen = '('
     private val parenClose = ')'
     private val firstSymbolAllowed = arrayOf("-", ",")
-    private val operators = arrayOf("+", "-", "÷", "×", "%", "=")
+    private val operators = arrayOf("+", "-", "÷", "×", "%", "=", "(")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -134,6 +134,15 @@ class MainActivity : AppCompatActivity() {
         binding.calc.text = binding.calc.text.toString().plus(upCalc)
     }
 
+    private fun validationParens(): String{
+        var expression = binding.calc.text.toString()
+
+        while (expression.count { it == parenOpen } > expression.count { it == parenClose })
+            expression += ")"
+
+        return expression
+    }
+
     private fun calculateResult() {
         if (binding.calc.text.isNotEmpty()){
             val startsWithOperator = operators.contains(binding.calc.text.first().toString())
@@ -141,7 +150,9 @@ class MainActivity : AppCompatActivity() {
             if ((startsWithOperator && binding.calc.text.count {operators.contains(it.toString())} >= 2) ||
                 (!startsWithOperator && binding.calc.text.count {operators.contains(it.toString())} >= 1)){
 
-                var expression = binding.calc.text.toString()
+                var expression = validationParens()
+
+                expression = expression
                     .replace('÷','/')
                     .replace('×','*')
                     .replace(',','.')
