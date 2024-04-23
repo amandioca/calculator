@@ -1,11 +1,13 @@
 package br.com.calculadora
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import br.com.calculadora.databinding.ActivityMainBinding
 import net.objecthunter.exp4j.ExpressionBuilder
 import net.objecthunter.exp4j.operator.Operator
+import java.lang.ArithmeticException
 
 class MainActivity : AppCompatActivity() {
 
@@ -53,7 +55,7 @@ class MainActivity : AppCompatActivity() {
 
                 if (isInt(buttonText)) {
                     binding.calc.text = binding.calc.text.toString().plus(buttonText)
-                    calculateResult()
+                    calculateResult(false)
                 } else {
                     when {
                         buttonText == "AC" -> {
@@ -62,12 +64,15 @@ class MainActivity : AppCompatActivity() {
                         }
                         buttonText.isEmpty() -> {
                             backspace()
-                            calculateResult()
+                            calculateResult(false)
                         }
                         buttonText == "=" && binding.calc.text.isNotEmpty() -> {
-                            calculateResult()
-                            binding.calc.text = binding.result.text
-                            binding.result.text = ""
+                            if (binding.result.currentTextColor != Color.RED) {
+                                calculateResult(true)
+
+                                binding.calc.text = binding.result.text
+                                binding.result.text = ""
+                            }
                         }
                         else -> symbolClickListener(buttonText)
                     }
@@ -143,12 +148,14 @@ class MainActivity : AppCompatActivity() {
         return expression
     }
 
-    private fun calculateResult() {
+    private fun calculateResult(buttonEquals: Boolean) {
         if (binding.calc.text.isNotEmpty()){
+
+            val divisionByZero = binding.calc.text.contains("÷0") || binding.calc.text.contains("0÷")
             val startsWithOperator = operators.contains(binding.calc.text.first().toString())
 
-            if ((startsWithOperator && binding.calc.text.count {operators.contains(it.toString())} >= 2) ||
-                (!startsWithOperator && binding.calc.text.count {operators.contains(it.toString())} >= 1)){
+            if (((startsWithOperator && binding.calc.text.count {operators.contains(it.toString())} >= 2) ||
+                (!startsWithOperator && binding.calc.text.count {operators.contains(it.toString())} >= 1)) && !divisionByZero || buttonEquals ){
 
                 var expression = validationParens()
 
@@ -164,13 +171,22 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 val expressionBuilder = ExpressionBuilder(expression).build()
+                try {
+                    if (expressionBuilder.validate().isValid){
+                        val result = formatResult(expressionBuilder.evaluate())
 
-                if (expressionBuilder.validate().isValid){
-                    val result = formatResult(expressionBuilder.evaluate())
-
-                    if (result != expression) binding.result.text = result
-                    else binding.result.text = ""
-                 }
+                        if (result != expression) binding.result.text = result
+                        else binding.result.text = ""
+                    }
+                } catch (e: ArithmeticException) {
+                    binding.result.text = "Impos. dividir por 0"
+                    binding.result.setTextColor(Color.RED)
+                    binding.calc.setTextColor(Color.RED)
+                } catch (e: Exception) {
+                    binding.result.text = "Erro de formatação"
+                    binding.result.setTextColor(Color.RED)
+                    binding.calc.setTextColor(Color.RED)
+                }
             }
         } else binding.result.text = ""
     }
