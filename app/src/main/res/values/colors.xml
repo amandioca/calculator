@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="white">#FAF9FE</color>
+    <color name="white2">#F0F1F6</color>
+    <color name="white3">#E1E3EF</color>
+    <color name="black_font">#454551</color>
 
-    <color name="coral_pink">#DB9286</color>
-    <color name="barn_red">#761000</color>
-    <color name="linen">#FEEFE5</color>
+    <color name="black">#121317</color>
+    <color name="black2">#272B36</color>
+    <color name="black3">#191C21</color>
+    <color name="white_font">#C5C7D2</color>
 
-    <color name="rich_black">#000714</color>
-    <color name="oxford_blue">#04183B</color>
-    <color name="caribbean_current">#3c6767</color>
-    <color name="brunswick_green">#2c4433</color>
-    <color name="french_grey">#aeb5c2</color>
+    <color name="pink">#FF9AFF</color>
+    <color name="pink_overlay">#59FF9AFF</color>
+    <color name="pink2">#2A142C</color>
+    <color name="pink3">#FAD8F9</color>
 
-    <color name="platinum">#e1e3df</color>
-    <color name="eerie_black">#1a1c1a</color>
-    <color name="eerie_black_light">#202521</color>
-    <color name="charcoal">#2d4b58</color>
-    <color name="feldgrau">#3b4a40</color>
-    <color name="black_olive">#2b352e</color>
-    <color name="cal_poly_green">#215135</color>
+    <color name="blue">#3F84FF</color>
+    <color name="blue_overlay">#593F84FF</color>
+    <color name="blue2">#031C42</color>
+    <color name="blue3">#BED0F3</color>
+
+    <color name="light_blue">#B1C7FF</color>
+    <color name="light_blue_overlay">#59B1C7FF</color>
+    <color name="light_blue2">#131A2E</color>
+    <color name="light_blue3">#DBE1F7</color>
 </resources>

@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@color/eerie_black"
+    style="@style/BG"
     android:gravity="center">
 
     <LinearLayout
+        style="@style/VISOR"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/nums"
         android:orientation="vertical"
         android:gravity="bottom"
-        android:background="@drawable/shape_oval_bg_visor"
         android:padding="20dp">
 
         <TextView
@@ -23,9 +23,10 @@
             android:layout_height="wrap_content"
             tools:text="0"
             android:textStyle="bold"
-            android:textSize="68dp"
+            android:textSize="68sp"
+            android:fontFamily="@font/open_sans_semibold"
             android:textAlignment="viewEnd"
-            android:textColor="@color/platinum"/>
+            android:textColor="?attr/colorOnPrimary"/>
 
         <TextView
             android:id="@+id/result"
@@ -33,9 +34,10 @@
             android:layout_height="wrap_content"
             tools:text="0"
             android:textStyle="bold"
-            android:textSize="52dp"
+            android:textSize="38sp"
+            android:fontFamily="@font/open_sans"
             android:textAlignment="textEnd"
-            android:textColor="@color/french_grey" />
+            android:textColor="?attr/colorOnPrimary" />
     </LinearLayout>
 
     <LinearLayout
@@ -57,27 +59,27 @@
             <Button
                 android:id="@+id/allClear"
                 android:text="AC"
-                style="@style/Button3"/>
+                style="@style/BTN_AC"/>
 
             <Button
                 android:id="@+id/num7"
                 android:text="7"
-                style="@style/Button1"/>
+                style="@style/BTN"/>
 
             <Button
                 android:id="@+id/num4"
                 android:text="4"
-                style="@style/Button1"/>
+                style="@style/BTN"/>
 
             <Button
                 android:id="@+id/num1"
                 android:text="1"
-                style="@style/Button1"/>
+                style="@style/BTN"/>
 
             <Button
                 android:id="@+id/num0"
                 android:text="0"
-                style="@style/Button1"/>
+                style="@style/BTN"/>
 
         </LinearLayout>
 
@@ -90,28 +92,28 @@
 
             <Button
                 android:id="@+id/parens"
-                android:text="( )"
-                style="@style/Button2"/>
+                android:text="(  )"
+                style="@style/BTN_OPERATORS"/>
 
             <Button
                 android:id="@+id/num8"
                 android:text="8"
-                style="@style/Button1"/>
+                style="@style/BTN"/>
 
             <Button
                 android:id="@+id/num5"
                 android:text="5"
-                style="@style/Button1"/>
+                style="@style/BTN"/>
 
             <Button
                 android:id="@+id/num2"
                 android:text="2"
-                style="@style/Button1"/>
+                style="@style/BTN"/>
 
             <Button
                 android:id="@+id/comma"
                 android:text=","
-                style="@style/Button1"/>
+                style="@style/BTN"/>
         </LinearLayout>
 
         <LinearLayout
@@ -124,27 +126,27 @@
             <Button
                 android:id="@+id/percent"
                 android:text="%"
-                style="@style/Button2"/>
+                style="@style/BTN_OPERATORS"/>
 
             <Button
                 android:id="@+id/num9"
                 android:text="9"
-                style="@style/Button1"/>
+                style="@style/BTN"/>
 
             <Button
                 android:id="@+id/num6"
                 android:text="6"
-                style="@style/Button1"/>
+                style="@style/BTN"/>
 
             <Button
                 android:id="@+id/num3"
                 android:text="3"
-                style="@style/Button1"/>
+                style="@style/BTN"/>
 
             <ImageButton
                 android:id="@+id/backspace"
                 android:src="@drawable/ic_backspace_24"
-                style="@style/Button1"/>
+                style="@style/BTN"/>
         </LinearLayout>
 
         <LinearLayout
@@ -157,32 +159,28 @@
             <Button
                 android:id="@+id/div"
                 android:text="÷"
-                style="@style/Button2"/>
+                style="@style/BTN_OPERATORS"/>
 
             <Button
                 android:id="@+id/times"
                 android:text="×"
-                style="@style/Button2"/>
+                style="@style/BTN_OPERATORS"/>
 
             <Button
                 android:id="@+id/min"
                 android:text="-"
-                style="@style/Button2"/>
+                style="@style/BTN_OPERATORS"/>
 
             <Button
                 android:id="@+id/plus"
                 android:text="+"
-                style="@style/Button2"/>
+                style="@style/BTN_OPERATORS"/>
 
             <Button
                 android:id="@+id/equal"
                 android:text="="
-                style="@style/Button4"/>
+                style="@style/BTN_EQUAL"/>
         </LinearLayout>
     </LinearLayout>
-
-
-
-
 
 </RelativeLayout>
