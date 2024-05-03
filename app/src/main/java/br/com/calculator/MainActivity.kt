@@ -1,10 +1,10 @@
-package br.com.calculadora
+package br.com.calculator
 
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import br.com.calculadora.databinding.ActivityMainBinding
+import br.com.calculator.databinding.ActivityMainBinding
 import net.objecthunter.exp4j.ExpressionBuilder
 import net.objecthunter.exp4j.operator.Operator
 import java.lang.ArithmeticException

@@ -1,4 +1,4 @@
-package br.com.calculadora
+package br.com.calculator
 
 import org.junit.Test
 
